@@ -1,6 +1,7 @@
 import tensorflow as tf
 from keras import backend as K # para implementar funcoes de ativacao personalizadas
 import os
+
 # referencia para adicionar funcoes de ativacao personalizadas: 
 #https://stackoverflow.com/questions/43915482/how-do-you-create-a-custom-activation-function-with-keras
 #tentar conda install tensorflow-gpu caso esteja usando anaconda e ocorra erro de dll
