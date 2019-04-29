@@ -2,23 +2,17 @@
 
 import pandas as pd
 import numpy as np
+import struct
 import matplotlib.pyplot as plt
 
-import mlp
+#import mlp
+#
 
 def read_idx(filename):
-	""" A function that can read MNIST's idx file format into numpy arrays.
-    The MNIST data files can be downloaded from here:
-
-    http://yann.lecun.com/exdb/mnist/
-    This relies on the fact that the MNIST dataset consistently uses
-    unsigned char types with their data segments.
-	"""
     with open(filename, 'rb') as f:
         zero, data_type, dims = struct.unpack('>HBB', f.read(4))
         shape = tuple(struct.unpack('>I', f.read(4))[0] for d in range(dims))
-        return np.fromstring(f.read(), dtype=np.uint8).reshape(shape)
-
+        return np.frombuffer(f.read(), dtype=np.uint8).reshape(shape)
 
 def main():
 	# Importando as imagens para treinamento
@@ -30,6 +24,8 @@ def main():
 	raw_test = read_idx('dados/t10k-images.idx3-ubyte')
 	X_test   = np.reshape(raw_test, (10000, 28*28))
 	y_test   = read_idx('dados/t10k-labels.idx1-ubyte')
+
+	print (X_train.shape)
 
 
 if __name__ == '__main__':
