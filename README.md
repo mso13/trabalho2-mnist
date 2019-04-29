@@ -27,7 +27,7 @@ pip install -r requirements.txt
    O(a) estudante deverá demonstrar conhecer a Rede Neural Artificial conhecida como
    "Backpropagation" (ou "Perceptron Multicamada"), aplicando-a na solução de um problema de reconhecimento de padrões.
    
-Usaremos a base de dados "MNIST", disponível em http://yann.lecun.com/exdb/mnist/ . Trata-se de um conjunto de imagens manuscritas dos dígitos de 0 a 9, em níveis de cinza. Cada imagem é um conjunto de 28x28 pixels em níveis de cinza de 0 (branco) a 255 (preto). As imagens foram centralizadas pelo método do centro de gravidade. Há 60000 imagens para treinamento e 10000 para teste. Outros detalhes do pré-processamento e dos formatos dos arquivos, bem como os arquivos propriamente ditos, podem ser buscados no sítio indicado acima.
+   Usaremos a base de dados "MNIST", disponível em http://yann.lecun.com/exdb/mnist/ . Trata-se de um conjunto de imagens manuscritas  dos dígitos de 0 a 9, em níveis de cinza. Cada imagem é um conjunto de 28x28 pixels em níveis de cinza de 0 (branco) a 255 (preto). As    imagens foram centralizadas pelo método do centro de gravidade. Há 60000 imagens para treinamento e 10000 para teste. Outros detalhes do  pré-processamento e dos formatos dos arquivos, bem como os arquivos propriamente ditos, podem ser buscados no sítio indicado acima.
    
 2. ##### Requisitos Básicos
 
