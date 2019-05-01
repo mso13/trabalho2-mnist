@@ -1,6 +1,7 @@
 from imports import *
 import os
 from neural_networks import *
+from sklearn.metrics import accuracy_score, confusion_matrix
 # referencia para adicionar funcoes de ativacao personalizadas: 
 #https://stackoverflow.com/questions/43915482/how-do-you-create-a-custom-activation-function-with-keras
 #tentar conda install tensorflow-gpu caso esteja usando anaconda e ocorra erro de dll
@@ -28,7 +29,16 @@ print(y_train.shape)
 print(y_test.shape)
 mlp = MLP([60, 10], 0.01)
 mlp.learn(x_train, y_train, epochs=10)
-print(mlp.predict(x_test)[0,:])
+test_classes  = mlp.model.predict_classes(x_test)
+test_outputs = mlp.predict(x_test)
+print(test_classes.shape)
+print(type(test_classes))
+print('Acuracia e cm no treino:')
+print(accuracy_score(y_train, mlp.model.predict_classes(x_train)))
+print(confusion_matrix(y_train, mlp.model.predict_classes(x_train)))
+print('Acuracia e cm no teste:')
+print(accuracy_score(y_test, mlp.model.predict_classes(x_test)))
+print(confusion_matrix(y_test, mlp.model.predict_classes(x_test)))
 #model = tf.keras.models.Sequential([
 #  tf.keras.layers.Flatten(input_shape=(28, 28)),
 #  tf.keras.layers.Dense(60, activation=custom_activation),
