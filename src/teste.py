@@ -2,6 +2,7 @@ from imports import *
 import os
 from neural_networks import GNN
 from neural_networks import MLP
+from keras.utils import to_categorical 
 from sklearn.metrics import accuracy_score, confusion_matrix
 # referencia para adicionar funcoes de ativacao personalizadas: 
 #https://stackoverflow.com/questions/43915482/how-do-you-create-a-custom-activation-function-with-keras
@@ -31,12 +32,20 @@ x_train, x_test = x_train.reshape(x_train.shape[0], 28*28), x_test.reshape(x_tes
 #print(y_test.shape)
 
 mlp = MLP([60, 10], 0.01)
-mlp.learn(x_train, y_train, epochs=10)
+print('non categorical shape and first sample')
+print(y_train.shape)
+print(y_train[0])
+print('categorical shape and first sample')
+print(to_categorical(y_train).shape)
+print(to_categorical(y_train)[0])
+#converting y_train to categorical will transform the outputs as a one hot variable 
+#(1 for the desired class and 0 for the others) allowing the network to train each output neuron
+mlp.learn(x_train, to_categorical(y_train), epochs=10)
 test_classes  = mlp.model.predict_classes(x_test)
 test_outputs = mlp.predict(x_test)
 
-print(test_classes.shape)
-print(type(test_classes))
+print(test_classes[0])
+print(test_outputs[0])
 
 print('Acuracia e cm no treino:')
 print(accuracy_score(y_train, mlp.model.predict_classes(x_train)))
