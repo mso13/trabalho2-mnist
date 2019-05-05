@@ -1,4 +1,7 @@
+# Used libraries
+
 import tensorflow as tf
+from tensorflow.keras.optimizers import SGD
 
 # Multilayer Perceptron Model
 class MLP:
@@ -19,14 +22,14 @@ class MLP:
 
 		# Hidden Layers
 		for neurons, act in zip(neurons_per_layer, activation_functions):
-			self.model.add(tf.keras.layers.Dense(neurons, activation=get_activation(act)))
+			self.model.add(tf.keras.layers.Dense(neurons, activation=self.get_activation(act)))
 
-		# Output Layers
+		# Output Layer
 		self.model.add(tf.keras.layers.Dense(output_classes,
-			activation=get_activation(out_layer_activation)))
+			activation=self.get_activation(out_layer_activation)))
 
         # Build Model
-		self.model.compile(optimizer=get_optmizer(optimizer), loss=get_loss(), metrics=['accuracy'])
+		self.model.compile(optimizer=self.get_optmizer(optimizer), loss=self.get_loss(loss), metrics=['accuracy'])
     
 	def learn(self, X, y, epochs):
 		self.model.fit(X, y, epochs=epochs)
@@ -40,6 +43,12 @@ class MLP:
 		if activation_function == 'relu':
 			act = tf.nn.relu
 
+		if activation_function == 'tanh':
+			act = tf.nn.tanh
+
+		if activation_function == 'sigmoid':
+			act = tf.nn.sigmoid
+
 		if activation_function == 'softmax':
 			act = tf.nn.softmax
 
@@ -50,11 +59,17 @@ class MLP:
 		if optimizer_function == 'adam':
 			opt = 'adam'
 
+		if optimizer_function == 'sgd':
+			opt = SGD(lr=0.01, momentum=0.0, decay=0.0, nesterov=False)
+
 		return opt
 
 	def get_loss(self, loss_function):
 
 		if loss_function == 'sparse_categorical_crossentropy':
 			loss = 'sparse_categorical_crossentropy'
+
+		if loss_function == 'mean_squared_error':
+			loss = 'mean_squared_error'
 
 		return loss

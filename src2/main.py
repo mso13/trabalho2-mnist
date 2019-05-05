@@ -1,5 +1,9 @@
+# Used libraries
+
 import tensorflow as tf 
 from NeuralNetworks import MLP
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix
 
 def main():
 
@@ -19,15 +23,27 @@ def main():
 	output_classes = 10
 
 	# 3. Define the activation function on hidden layers
-	activation_functions = ['relu', 'relu']
+	# Options:
+	#	- 'relu'
+	#	- 'tanh'
+	#	- 'sigmoid'
+	activation_functions = ['relu', 'tanh']
 
 	# 4. Define the activation function on output layer
-	out_layer_activation = ['softmax']
+	# Options:
+	#	- 'softmax'
+	out_layer_activation = 'softmax'
 
 	# 5. Define the optimizer
-	optimizer = 'adam'
+	#  Options:
+	#   - 'adam'
+	#	- 'sgd'
+	optimizer = 'sgd'
 
 	# 6. Define the loss function
+	# Options: 
+	#	- 'sparse_categorical_crossentropy'
+	#	- 'mean_squared_error'
 	loss = 'sparse_categorical_crossentropy'
 
 	# Define the learning rate
@@ -45,7 +61,7 @@ def main():
 			  learning_rate)
 
 	# 2. Fit the model
-	mlp.learn(X_train, y_train, epochs=10)
+	mlp.learn(X_train, y_train, epochs=5)
 
 	# 3. Evaluate the model
 	test_classes  	= mlp.model.predict_classes(X_test)
