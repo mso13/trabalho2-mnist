@@ -1,2 +1,4 @@
 mahotas
-tensorflow-gpu
+tensorflow
+keras
+sklearn

@@ -1,7 +1,8 @@
 # Used libraries
 
 import tensorflow as tf 
-from NeuralNetworks import MLP
+from MultiLayerPerceptron import MLP
+from CustomFunctions import *
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 
@@ -24,29 +25,31 @@ def main():
 
 	# 3. Define the activation function on hidden layers
 	# Options:
-	#	- 'relu'
-	#	- 'tanh'
-	#	- 'sigmoid'
+	#   - 'relu'
+	#   - 'tanh'
+	#   - 'sigmoid'
 	activation_functions = ['relu', 'tanh']
 
 	# 4. Define the activation function on output layer
 	# Options:
-	#	- 'softmax'
+	#   - 'softmax'
 	out_layer_activation = 'softmax'
 
 	# 5. Define the optimizer
 	#  Options:
 	#   - 'adam'
-	#	- 'sgd'
+	#   - SGD(lr=0.01, momentum=0.0, decay=0.0, nesterov=False)
 	optimizer = 'sgd'
 
 	# 6. Define the loss function
 	# Options: 
-	#	- 'sparse_categorical_crossentropy'
-	#	- 'mean_squared_error'
+	#   - 'sparse_categorical_crossentropy'
+	#   - 'mean_squared_error'
+	#   -  sqr_error
 	loss = 'sparse_categorical_crossentropy'
 
-	# Define the learning rate
+	# 7. Define the learning rate
+	#   - Variate the learning rates!
 	learning_rate = 0.01
 
 	# Learn and Predict Model
@@ -64,8 +67,8 @@ def main():
 	mlp.learn(X_train, y_train, epochs=5)
 
 	# 3. Evaluate the model
-	test_classes  	= mlp.model.predict_classes(X_test)
-	test_outputs 	= mlp.predict(X_test)
+	test_classes = mlp.model.predict_classes(X_test)
+	test_outputs = mlp.predict(X_test)
 
 	print('Accuracy and CM on Training Set:')
 	print(accuracy_score(y_train, mlp.model.predict_classes(X_train)))
@@ -74,6 +77,24 @@ def main():
 	print('Accuracy and CM on Test Set:')
 	print(accuracy_score(y_test, mlp.model.predict_classes(X_test)))
 	print(confusion_matrix(y_test, mlp.model.predict_classes(X_test)))
+
+	# Previous attempt
+
+	# mlp = MLP([60, 10], 0.01)
+	# print('non categorical shape and first sample')
+	# print(y_train.shape)
+	# print(y_train[0])
+	# print('categorical shape and first sample')
+	# print(to_categorical(y_train).shape)
+	# print(to_categorical(y_train)[0])
+
+	# # Converting y_train to categorical will transform the outputs
+	# # as a one hot variable (1 for the desired class and 0 for the others)
+	# # allowing the network to train each output neuron.
+	
+	# mlp.learn(x_train, to_categorical(y_train), epochs=10)
+	# test_classes  = mlp.model.predict_classes(x_test)
+	# test_outputs = mlp.predict(x_test)
 
 
 def load_dataset():
