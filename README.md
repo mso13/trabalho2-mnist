@@ -9,7 +9,9 @@
 ##### Bibliotecas utilizadas:
 
 1. *Tensorflow*
-2. *Mahotas*
+2. *Keras*
+3. *Mahotas*
+4. *Sklearn*
 
 ```python
 # Para instalar as bibliotecas utilizadas, abra o terminal neste diretório
