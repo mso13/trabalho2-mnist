@@ -45,13 +45,13 @@ pip install -r requirements.txt
 
 3. ##### **Requisitos adicionais (pontuação extra)**
 
-   - [ ] Uso de múltiplas camadas escondidas
-   - [ ] Uso de Entropia Cruzada como função de custo.
+   - [x] Uso de múltiplas camadas escondidas
+   - [x] Uso de Entropia Cruzada como função de custo.
    - [ ] Uso de Regularização (*L1, L2, Dropout*)
    - [ ] Uso de saída em camada *softmax* (Regressão Logística) e custo *log-likelihood*.
    - [ ] Uso de sequências de camadas RBM com treinamento não-supervisionado (*Contrast*
-     *Divergenc*e)
-   - [ ]  Teste com padrões adicionais (obtidos pelos autores)
+     *Divergence*)
+   - [x]  Teste com padrões adicionais (obtidos pelos autores)
 
 4. ##### Regras Gerais e Observações
 
