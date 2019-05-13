@@ -10,8 +10,10 @@
 
 1. *Tensorflow*
 2. *Keras*
-3. *Mahotas*
-4. *Sklearn*
+3. *Sklearn*
+4. *Numpy*
+5. *Pandas*
+6. *Matplotlib*
 
 ```python
 # Para instalar as bibliotecas utilizadas, abra o terminal neste diretório
