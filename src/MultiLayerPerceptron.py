@@ -4,6 +4,7 @@ import tensorflow as tf
 from tensorflow.keras.optimizers import SGD
 import numpy as np
 import matplotlib.pyplot as plt
+
 # Multilayer Perceptron Model
 class MLP:
     def __init__(self, 
@@ -14,6 +15,14 @@ class MLP:
                 optimizer,
                 loss,
                 learning_rate):
+
+        # Attributes
+        self.neurons_per_layer = neurons_per_layer
+        self.activation_functions = activation_functions
+        self.out_layer_activation = out_layer_activation
+        self.optimizer = optimizer
+        self.loss = loss
+        self.learning_rate = learning_rate
 
         # Feed-Forward Neural Network Model
         self.model = tf.keras.models.Sequential()
@@ -33,7 +42,8 @@ class MLP:
         self.model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
     
     def learn(self, X, y, epochs):
-        self.model.fit(X, y, epochs=epochs)
+        self.history = self.model.fit(X, y, epochs=epochs)
+        print (self.history.history.keys())
 
     def predict(self, X_new, batch_size=100):
         predictions = self.model.predict(X_new, batch_size=batch_size)

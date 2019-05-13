@@ -4,21 +4,16 @@ import tensorflow as tf
 from MultiLayerPerceptron import MLP
 from CustomFunctions import *
 from sklearn.metrics import accuracy_score
+from sklearn.metrics import f1_score
 from sklearn.metrics import confusion_matrix
 from tensorflow.keras.optimizers import SGD
 import numpy as np
 import matplotlib.pyplot as plt
 from keras.utils import to_categorical
 import os
+
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
-# Function to plot an image
-def show_image(img, label,new_figure=False,block=True):
-    if(new_figure):
-        plt.figure() # new figure to accomodate every loop image 
-    plt.imshow(img, cmap="Greys")
-    plt.title(label)
-    plt.show(block = block)
 
 def main():
 
@@ -46,6 +41,7 @@ def main():
 
     # 4. Define the activation function on output layer
     # Options:
+    #   - 'relu'
     #   - 'softmax'
     #   - 'sigmoid'
     out_layer_activation = 'softmax'
@@ -57,8 +53,9 @@ def main():
     # 6. Define the optimizer
     #  Options:
     #   - 'adam'
+    #   - 'sgd'
     #   - SGD(lr=0.01, momentum=0.0, decay=0.0, nesterov=False)
-    optimizer = SGD(lr=learning_rate, momentum=0.0, decay=0.0, nesterov=False)
+    optimizer = SGD(lr=0.01, momentum=0.0, decay=0.0, nesterov=False)
 
     # 7. Define the loss function
     # Options: 
@@ -67,9 +64,7 @@ def main():
     #   -  sqr_error
     loss = 'categorical_crossentropy'
 
-
-
-    # Learn and Predict Model
+    ## Learn and Predict Model
 
     # 1. Construct the MLP
     mlp = MLP(neurons_per_layer,
@@ -81,48 +76,38 @@ def main():
               learning_rate)
 
     # 2. Fit the model
-    mlp.learn(X_train, to_categorical(y_train), epochs=5)
+    mlp.learn(X_train, to_categorical(y_train), epochs=10)
+
     # 3. Show recognized patterns
-    for output_class in range(10):
+    for output_class in [1, 3, 7]:
         pattern_recognized, pattern_rejected, total_pattern = mlp.get_pattern_to_classify_as(output_class)
         show_image(pattern_recognized, label = 'pattern recognized for class {}'.format(output_class),
                    new_figure=True, block=False)
+
         #show_image(pattern_rejected, label = 'pattern rejected for class {}'.format(output_class),
                    #new_figure=True, block=False)
-        show_image(total_pattern, label = 'Remainder pattern for class {}'.format(output_class),
-                   new_figure=True, block=False)
+
+        #show_image(total_pattern, label = 'Remainder pattern for class {}'.format(output_class),
+                   #new_figure=True, block=False)
+
     plt.show()
 
     # 4. Evaluate the model
     test_classes = mlp.model.predict_classes(X_test)
     test_outputs = mlp.predict(X_test)
 
-    print('Accuracy and CM on Training Set:')
-    print(accuracy_score(y_train, mlp.model.predict_classes(X_train)))
-    print(confusion_matrix(y_train, mlp.model.predict_classes(X_train)))
+    print ('Accuracy on Training Set:', accuracy_score(y_train, mlp.model.predict_classes(X_train)))
+    print ('F1-Score on Training Set:', f1_score(y_train, mlp.model.predict_classes(X_train), average='macro'))
+    print ('Confusion Matrix on Training Set:')
+    print (confusion_matrix(y_train, mlp.model.predict_classes(X_train)))
 
-    print('Accuracy and CM on Test Set:')
-    print(accuracy_score(y_test, mlp.model.predict_classes(X_test)))
-    print(confusion_matrix(y_test, mlp.model.predict_classes(X_test)))
+    print ('Accuracy on Test Set:', accuracy_score(y_test, mlp.model.predict_classes(X_test)))
+    print ('F1-Score on Test Set:', f1_score(y_test, mlp.model.predict_classes(X_test), average='macro'))
+    print ('Classification Report on Test Set:')
+    plot_confusion_matrix(confusion_matrix(y_test, mlp.model.predict_classes(X_test)))
 
-    # Previous attempt
-
-    # mlp = MLP([60, 10], 0.01)
-    # print('non categorical shape and first sample')
-    # print(y_train.shape)
-    # print(y_train[0])
-    # print('categorical shape and first sample')
-    # print(to_categorical(y_train).shape)
-    # print(to_categorical(y_train)[0])
-
-    # # Converting y_train to categorical will transform the outputs
-    # # as a one hot variable (1 for the desired class and 0 for the others)
-    # # allowing the network to train each output neuron.
-    
-    # mlp.learn(x_train, to_categorical(y_train), epochs=10)
-    # test_classes  = mlp.model.predict_classes(x_test)
-    # test_outputs = mlp.predict(x_test)
-
+    # 5. Show Evaluation Plots
+    show_evaluation(mlp)
 
 def load_dataset():
     mnist = tf.keras.datasets.mnist
