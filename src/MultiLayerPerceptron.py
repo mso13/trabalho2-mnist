@@ -2,8 +2,14 @@
 
 import tensorflow as tf
 from tensorflow.keras.optimizers import SGD
+from tensorflow.keras.callbacks import TensorBoard
 import numpy as np
 import matplotlib.pyplot as plt
+import time
+
+NAME = "MNIST-MLP-{}".format(1)
+
+tensorboard = TensorBoard(log_dir='logs/{}'.format(NAME))
 
 # Multilayer Perceptron Model
 class MLP:
@@ -42,7 +48,7 @@ class MLP:
         self.model.compile(optimizer=optimizer, loss=loss, metrics=['accuracy'])
     
     def learn(self, X, y, epochs):
-        self.history = self.model.fit(X, y, epochs=epochs)
+        self.history = self.model.fit(X, y, validation_split=0.15, epochs=epochs, callbacks=[tensorboard])
         print (self.history.history.keys())
 
     def predict(self, X_new, batch_size=100):

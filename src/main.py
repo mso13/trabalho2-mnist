@@ -27,7 +27,7 @@ def main():
     # Create the Neural Network Structure
 
     # 1. Define the number of Hidden Layers and number of Neurons at each layer 
-    neurons_per_layer = [20] # 1 layer, 20 neurons
+    neurons_per_layer = [16] # 1 layer, 20 neurons
 
     # 2. Define the number of output classes
     output_classes = 10
@@ -44,7 +44,7 @@ def main():
     #   - 'relu'
     #   - 'softmax'
     #   - 'sigmoid'
-    out_layer_activation = 'softmax'
+    out_layer_activation = 'sigmoid'
 
     # 5. Define the learning rate
     #   - Variate the learning rates!
@@ -64,6 +64,9 @@ def main():
     #   -  sqr_error
     loss = 'categorical_crossentropy'
 
+    # 8. Number of epochs
+    epochs = 20
+
     ## Learn and Predict Model
 
     # 1. Construct the MLP
@@ -76,7 +79,7 @@ def main():
               learning_rate)
 
     # 2. Fit the model
-    mlp.learn(X_train, to_categorical(y_train), epochs=10)
+    mlp.learn(X_train, to_categorical(y_train), epochs=epochs)
 
     # 3. Show recognized patterns
     for output_class in [1, 3, 7]:
@@ -90,16 +93,16 @@ def main():
         #show_image(total_pattern, label = 'Remainder pattern for class {}'.format(output_class),
                    #new_figure=True, block=False)
 
-    plt.show()
+    #plt.show()
 
     # 4. Evaluate the model
     test_classes = mlp.model.predict_classes(X_test)
     test_outputs = mlp.predict(X_test)
 
-    print ('Accuracy on Training Set:', accuracy_score(y_train, mlp.model.predict_classes(X_train)))
-    print ('F1-Score on Training Set:', f1_score(y_train, mlp.model.predict_classes(X_train), average='macro'))
-    print ('Confusion Matrix on Training Set:')
-    print (confusion_matrix(y_train, mlp.model.predict_classes(X_train)))
+    #print ('Accuracy on Training Set:', accuracy_score(y_train, mlp.model.predict_classes(X_train)))
+    #print ('F1-Score on Training Set:', f1_score(y_train, mlp.model.predict_classes(X_train), average='macro'))
+    #print ('Confusion Matrix on Training Set:')
+    #print (confusion_matrix(y_train, mlp.model.predict_classes(X_train)))
 
     print ('Accuracy on Test Set:', accuracy_score(y_test, mlp.model.predict_classes(X_test)))
     print ('F1-Score on Test Set:', f1_score(y_test, mlp.model.predict_classes(X_test), average='macro'))

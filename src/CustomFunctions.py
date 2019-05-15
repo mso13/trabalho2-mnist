@@ -69,6 +69,7 @@ def show_evaluation(network, block=True):
 
     # Summarize history for Accuracy
     plt.plot(history.history['acc'])
+    plt.plot(history.history['val_acc'])
     plt.title('model accuracy\nLR={}, Hidden={}, Activations={}\nOutput={}, Loss={}'
                 .format(network.learning_rate,
                  network.neurons_per_layer,
@@ -77,11 +78,12 @@ def show_evaluation(network, block=True):
                  network.loss))
     plt.ylabel('accuracy')
     plt.xlabel('epoch')
-    plt.legend(['train', 'test'], loc='upper left')
+    plt.legend(['train', 'validation'], loc='upper left')
     plt.show(block = block)
 
     # Summarize history for Loss
     plt.plot(history.history['loss'])
+    plt.plot(history.history['val_loss'])
     plt.title('model loss\nLR={}, Hidden={}, Activations={}\nOutput={}, Loss={}'
                 .format(network.learning_rate,
                  network.neurons_per_layer,
@@ -90,5 +92,5 @@ def show_evaluation(network, block=True):
                  network.loss))
     plt.ylabel('loss')
     plt.xlabel('epoch')
-    plt.legend(['train', 'test'], loc='upper left')
+    plt.legend(['train', 'validation'], loc='upper left')
     plt.show(block = block)
