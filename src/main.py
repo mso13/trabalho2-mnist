@@ -93,7 +93,7 @@ def main():
         #show_image(total_pattern, label = 'Remainder pattern for class {}'.format(output_class),
                    #new_figure=True, block=False)
 
-    #plt.show()
+    plt.show()
 
     # 4. Evaluate the model
     test_classes = mlp.model.predict_classes(X_test)
