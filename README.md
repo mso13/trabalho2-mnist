@@ -45,15 +45,19 @@ pip install -r requirements.txt
 
    B) Fazer uma análise dos resultados obtidos, verificando a evolução da taxa de erro (e o erro quadrático) no arquivo de treinamento, a taxa de erro no arquivo de teste, as dificuldades encontradas, as soluções propostas, os valores usados para os parâmetros de treinamento. O arquivo de teste não deve ser usado para nenhuma otimização da rede. Apenas para testar uma rede já treinada.
 
-3. ##### **Requisitos adicionais (pontuação extra)**
+3. ##### **Requisitos adicionais**
 
    - [x] Uso de múltiplas camadas escondidas
    - [x] Uso de Entropia Cruzada como função de custo.
    - [ ] Uso de Regularização (*L1, L2, Dropout*)
+   - [x] Uso de saída em camada *softmax* (Regressão Logística)
+   - [x] Uso de funções de ativação *Relu* e  *Tangente hiperbólica* nas camadas escondidas
+   - [x] Uso de múltiplas taxas de aprendizado para verificar seu impacto na acurácia
+   - [x] Uso de múltiplas épocas para verificar seu impacto na acurácia
    - [ ] Uso de saída em camada *softmax* (Regressão Logística) e custo *log-likelihood*.
    - [ ] Uso de sequências de camadas RBM com treinamento não-supervisionado (*Contrast*
      *Divergence*)
-   - [x]  Teste com padrões adicionais (obtidos pelos autores)
+   - []  Teste com padrões adicionais (obtidos pelos autores)
 
 4. ##### Regras Gerais e Observações
 
